@@ -1,216 +1,156 @@
-# Ex09 Event Registration Web Application
-## Date:07/11/2024
+# Ex.08 Design of Interactive Image Gallery
 
-## AIM:
-To design, develop and deploy a web application for event registration.
+## AIM
+  To design a web application for an inteactive image gallery with minimum five images.
 
-## DESIGN STEPS:
+## DESIGN STEPS
 
-### Step 1:
-Create a new frame.
+## Step 1:
 
-### Step 2:
-Select any one preset size of your choice.
+Clone the github repository and create Django admin interface
 
-### Step 3:
-Select the shapes you need.
+## Step 2:
 
-### Step 4:
-Import images as needed.
+Change settings.py file to allow request from all hosts.
 
-### Step 5:
-Create pages based on your need and link them.
+## Step 3:
 
-### Step 6:
+Use CSS for positioning and styling.
 
-Validate the HTML and CSS code.
+## Step 4:
 
-### Step 6:
+Write JavaScript program for implementing interactivit
+
+## Step 5:
+
+Validate the HTML and CSS code
+
+## Step 6:
 
 Publish the website in the given URL.
 
-## DESIGN TOOL:
-Figma
+## PROGRAM
+```html
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Image Gallery</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            margin: 20px 0;
+        }
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            padding: 20px;
+            width: 100%;
+            max-width: 1200px;
+        }
+        .gallery img {
+            width: 100%;
+            height: auto;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: transform 0.2s ease-in-out;
+        }
+        .gallery img:hover {
+            transform: scale(1.05);
+        }
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 10px;
+        }
+        .lightbox.active {
+            display: flex;
+        }
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 30px;
+            color: white;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+        }
+        .close:hover {
+            color: #f00;
+        }
+    </style>
+</head>
+<body>
+    <h1>Interactive Image Gallery</h1>
+    <div class="gallery">
+        <img src="i1.jpg" data-full="i1.jpg" alt="Image 1">
+        <img src="i2.jpg" data-full="i2.jpg" alt="Image 2">
+        <img src="i3.jpg" data-full="i3.jpg" alt="Image 3">
+        <img src="i4.jpg" data-full="i4.jpg" alt="Image 4">
+        <img src="i5.jpg" data-full="i5.jpg" alt="Image 5">
+        <img src="i6.jpg" data-full="i6.jpg" alt="Image 6">
+        <img src="i7.jpg" data-full="i7.jpg" alt="Image 7">
+        <img src="i8.jpg" data-full="i7.jpg" alt="Image 8">
+        <img src="i9.jpg" data-full="i7.jpg" alt="Image 9">
+    </div>
+    <div id="lightbox" class="lightbox">
+        <img id="lightbox-img" src="" alt="Expanded Image">
+        <button class="close" id="lightbox-close">&times;</button>
+    </div>
+    <script>
+        const galleryImages = document.querySelectorAll('.gallery img');
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const lightboxClose = document.getElementById('lightbox-close');
 
-## CODE:
-```
-Home Page
-<div style="width: 100%; height: 100%; position: relative; background: black">
-    <img style="width: 800px; height: 800px; left: 417px; top: 416px; position: absolute" src="https://via.placeholder.com/800x800" />
-    <img style="width: 1635px; height: 252px; left: 0px; top: 0px; position: absolute" src="https://via.placeholder.com/1635x252" />
-    <div style="width: 891px; height: 193px; left: 365px; top: 1586px; position: absolute; background: #D9D9D9"></div>
-    <div style="width: 555px; height: 154px; left: 640px; top: 1625px; position: absolute; color: black; font-size: 96px; font-family: Inter; font-weight: 400; word-wrap: break-word">Register</div>
-    <div style="width: 886px; height: 176px; left: 370px; top: 1901px; position: absolute; background: #D9D9D9"></div>
-    <div style="width: 358px; height: 116px; left: 668px; top: 1931px; position: absolute; color: black; font-size: 96px; font-family: Inter; font-weight: 400; word-wrap: break-word">Login</div>
-    <div style="left: 302px; top: 1363px; position: absolute; color: white; font-size: 96px; font-family: Inter; font-weight: 400; word-wrap: break-word">EVENT REGISTRATION</div>
-</div>
+        galleryImages.forEach(image => {
+            image.addEventListener('click', () => {
+                lightboxImg.src = image.getAttribute('data-full');
+                lightbox.classList.add('active');
+            });
+        });
 
-// Register
-color: black;
- font-size: 96px;
- font-family: Inter;
- font-weight: 400;
- word-wrap: break-word
----
-// Login
-color: black;
- font-size: 96px;
- font-family: Inter;
- font-weight: 400;
- word-wrap: break-word
----
-// EVENT REGISTRATION
-color: white;
- font-size: 96px;
- font-family: Inter;
- font-weight: 400;
- word-wrap: break-word
+        lightboxClose.addEventListener('click', () => {
+            lightbox.classList.remove('active');
+        });
 
- Events Page
- <div style="width: 100%; height: 100%; position: relative; background: rgba(3.09, 247.12, 203.20, 0.46)">
-    <img style="width: 1635px; height: 252px; left: 0px; top: 2717px; position: absolute" src="https://via.placeholder.com/1635x252" />
-    <div style="width: 889px; height: 217px; left: 524px; top: 2342px; position: absolute; color: #AC5182; font-size: 128px; font-family: Inter; font-weight: 400; word-wrap: break-word">EVENTS</div>
-    <div style="width: 50px; height: 50px; left: 114px; top: 2012px; position: absolute; background: #6D6060; border-radius: 9999px"></div>
-    <div style="width: 50px; height: 50px; left: 114px; top: 1850px; position: absolute; background: #6D6060; border-radius: 9999px"></div>
-    <div style="width: 50px; height: 50px; left: 114px; top: 1688px; position: absolute; background: #6D6060; border-radius: 9999px"></div>
-    <div style="width: 50px; height: 50px; left: 114px; top: 1526px; position: absolute; background: #6D6060; border-radius: 9999px"></div>
-    <div style="width: 50px; height: 50px; left: 114px; top: 1364px; position: absolute; background: #6D6060; border-radius: 9999px"></div>
-    <div style="width: 50px; height: 50px; left: 114px; top: 1202px; position: absolute; background: #6D6060; border-radius: 9999px"></div>
-    <div style="width: 50px; height: 50px; left: 114px; top: 1040px; position: absolute; background: #6D6060; border-radius: 9999px"></div>
-    <div style="width: 627px; height: 95px; left: 211px; top: 2035px; position: absolute; color: black; font-size: 96px; font-family: Inter; font-weight: 400; word-wrap: break-word">Cricket</div>
-    <div style="width: 566px; height: 122px; left: 211px; top: 1886px; position: absolute; color: black; font-size: 96px; font-family: Inter; font-weight: 400; word-wrap: break-word">Badminton</div>
-    <div style="width: 487px; height: 113px; left: 211px; top: 1731px; position: absolute; color: black; font-size: 96px; font-family: Inter; font-weight: 400; word-wrap: break-word">Football</div>
-    <div style="left: 211px; top: 1559px; position: absolute; color: black; font-size: 96px; font-family: Inter; font-weight: 400; word-wrap: break-word">Throwball</div>
-    <div style="left: 211px; top: 1389px; position: absolute; color: black; font-size: 96px; font-family: Inter; font-weight: 400; word-wrap: break-word">Volleyball</div>
-    <div style="left: 211px; top: 1240px; position: absolute; color: black; font-size: 96px; font-family: Inter; font-weight: 400; word-wrap: break-word">Hockey</div>
-    <div style="left: 211px; top: 1065px; position: absolute; color: black; font-size: 96px; font-family: Inter; font-weight: 400; word-wrap: break-word">Tennis</div>
-</div>
-
-// EVENTS
-color: #AC5182;
- font-size: 128px;
- font-family: Inter;
- font-weight: 400;
- word-wrap: break-word
----
-// Cricket
-color: black;
- font-size: 96px;
- font-family: Inter;
- font-weight: 400;
- word-wrap: break-word
----
-// Badminton
-color: black;
- font-size: 96px;
- font-family: Inter;
- font-weight: 400;
- word-wrap: break-word
----
-// Football
-color: black;
- font-size: 96px;
- font-family: Inter;
- font-weight: 400;
- word-wrap: break-word
----
-// Throwball
-color: black;
- font-size: 96px;
- font-family: Inter;
- font-weight: 400;
- word-wrap: break-word
----
-// Volleyball
-color: black;
- font-size: 96px;
- font-family: Inter;
- font-weight: 400;
- word-wrap: break-word
----
-// Hockey
-color: black;
- font-size: 96px;
- font-family: Inter;
- font-weight: 400;
- word-wrap: break-word
----
-// Tennis
-color: black;
- font-size: 96px;
- font-family: Inter;
- font-weight: 400;
- word-wrap: break-word
-
- Details Page
- <div style="width: 100%; height: 100%; position: relative; background: rgba(239.47, 101.18, 225.64, 0.53)">
-    <img style="width: 1657px; height: 238px; left: 0px; top: 0px; position: absolute" src="https://via.placeholder.com/1657x238" />
-    <div style="width: 860px; height: 185px; left: 447px; top: 386px; position: absolute"><span style="color: black; font-size: 128px; font-family: Inter; font-weight: 400; word-wrap: break-word">  </span><span style="color: #744444; font-size: 128px; font-family: Inter; font-weight: 400; word-wrap: break-word">REGISTER</span></div>
-    <div style="width: 516px; height: 165px; left: 141px; top: 719px; position: absolute; color: black; font-size: 96px; font-family: Inter; font-weight: 400; word-wrap: break-word">First Name</div>
-    <div style="width: 784px; height: 168px; left: 784px; top: 647px; position: absolute; background: white"></div>
-    <div style="width: 516px; height: 142px; left: 141px; top: 1032px; position: absolute; color: black; font-size: 96px; font-family: Inter; font-weight: 400; word-wrap: break-word">Last Name</div>
-    <div style="width: 784px; height: 168px; left: 784px; top: 996px; position: absolute; background: white"></div>
-    <div style="width: 497px; height: 146px; left: 160px; top: 1322px; position: absolute; color: black; font-size: 96px; font-family: Inter; font-weight: 400; word-wrap: break-word">Email</div>
-    <div style="width: 784px; height: 168px; left: 784px; top: 1310px; position: absolute; background: white"></div>
-    <div style="width: 612px; height: 232px; left: 141px; top: 1616px; position: absolute; color: black; font-size: 96px; font-family: Inter; font-weight: 400; word-wrap: break-word">Mobile Number</div>
-    <div style="width: 784px; height: 168px; left: 784px; top: 1626px; position: absolute; background: white"></div>
-    <div style="width: 555px; height: 116px; left: 141px; top: 1996px; position: absolute; color: black; font-size: 96px; font-family: Inter; font-weight: 400; word-wrap: break-word">Department</div>
-    <div style="width: 784px; height: 168px; left: 784px; top: 1970px; position: absolute; background: white"></div>
-</div>
-
-//   
-color: black;
- font-size: 128px;
- font-family: Inter;
- font-weight: 400;
- word-wrap: break-word
----
-// REGISTER
-color: #744444;
- font-size: 128px;
- font-family: Inter;
- font-weight: 400;
- word-wrap: break-word
----
-// First Name
-color: black;
- font-size: 96px;
- font-family: Inter;
- font-weight: 400;
- word-wrap: break-word
----
-// Last Name
-color: black;
- font-size: 96px;
- font-family: Inter;
- font-weight: 400;
- word-wrap: break-word
----
-// Email
-color: black;
- font-size: 96px;
- font-family: Inter;
- font-weight: 400;
- word-wrap: break-word
----
-// Mobile Number
-color: black;
- font-size: 96px;
- font-family: Inter;
- font-weight: 400;
- word-wrap: break-word
----
-// Department
-color: black;
- font-size: 96px;
- font-family: Inter;
- font-weight: 400;
- word-wrap: break-word
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                lightbox.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
 ```
 
-## OUTPUT:
-![329871309-c2eef32e-9401-4d13-8c1e-deca167e6a9c](https://github.com/user-attachments/assets/31acd94e-ae52-4405-981c-9f5d38f24c78)
+## OUTPUT
+![alt text](<Screenshot 2025-11-17 092840.png>)
 
+![alt text](<Screenshot 2025-11-17 092721.png>)
 
-## RESULT:
-The program to design, develop and deploy a web application for event registration is completed successfully.
+![alt text](<Screenshot 2025-11-17 092737.png>)
+## RESULT
+  The program for designing an interactive image gallery using HTML, CSS and JavaScript is executed successfully.
